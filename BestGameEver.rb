@@ -5,6 +5,7 @@ class Personnage
 	@pv_perso = pv
 	@attaque_perso = attaque
 	@defense_perso = defense
+	pv_courants = @pv_perso
 
 	end
 
@@ -32,8 +33,8 @@ class Personnage
 
 	def blessure(degats)
 		degats = degats - @defense_perso
-		if degats < 0
-			degats = 0
+		if degats <= 0
+			degats = 1
 		end
 		@pv_perso = @pv_perso - degats
 		sleep(0.5)
@@ -42,13 +43,18 @@ class Personnage
 
 	def megablessure(degats)
 		degats = degats - @defense_perso + rand(5)
-		if degats < 0
-			degats = 0
+		if degats <= 0
+			degats = 1
 		end
 		@pv_perso = @pv_perso - degats
 		sleep(0.5)
 		puts "violent le bougre... #{degats} pv en moins et un t shirt ruiné"
 	end
+
+	def getpv
+		return @pv_perso
+	end
+
 
 class Monster
 	
@@ -57,6 +63,7 @@ class Monster
 		@pv_monster = pv
 		@attaque_monster = attaque
 		@defense_monster = defense 
+		pv_courants = @pv_monster
 	end
 
 	def vlan(cible)
@@ -79,17 +86,23 @@ class Monster
 		sleep(0.5)
 		puts "Dans les dents ! #{degats} points de vie perdus!" 
 	end
+	def getpv
+		return @pv_monster
+	end
 end
 
 pvMechant = rand(50..100)
 atqMonstre = rand(3..7)
 defMonstre = rand(2..4)
 a = 100
-b = 5
+b = 20
 c = 3
 
 Monstre = Monster.new(pvMechant, atqMonstre, defMonstre)
 Heros = Personnage.new(a, b, c)
+
+current_pv_monster = Monstre.getpv
+current_pv_heros = Heros.getpv
 
 if pvMechant < 65
 	sleep(0.5)
@@ -108,7 +121,7 @@ end
 sleep(0.5)
 puts "La bête est formidable, #{pvMechant} points de vie, une force de frappe de #{atqMonstre} et #{defMonstre} de défense ! Il va falloir jouer serré..."
 
-until pvMechant <= 0 || a <= 0 
+until current_pv_monster <= 0 || current_pv_heros <= 0 
 	puts "Quelle action choisir ? (paf, block, super)"
 		action = gets.chomp
 	until action == "paf" || action == "block" || action == "super"
@@ -125,18 +138,25 @@ until pvMechant <= 0 || a <= 0
 	sleep(0.5)
 	puts "Le monstre s'énerve, attention..."
 	sleep(0.5)
-	a = rand(2)
-	if a < 1
+	j = rand(2)
+	if j == 1
 		Monstre.vlan(Heros)
 	else
 		Monstre.paf(Heros)
 	end
+	current_pv_monster = Monstre.getpv
+	current_pv_heros = Heros.getpv
+	
+	puts "Il vous reste #{current_pv_heros} points de vie, le monstre en a #{current_pv_monster}"
+	sleep(0.5)
+	puts "Le combat continue !"
+	sleep(0.5)
 end
 
-if pvMechant <= 0 
+if current_pv_monster <= 0 
 	sleep(0.5)
 	puts "Victoire !"
-elsif a <= 0
+elsif current_pv_heros <= 0
 	sleep(0.5)
 	puts "La bête a eu raison de vous, les ménestrels chanteront pendant bien longtemps votre courage... et votre stupidité"
 end

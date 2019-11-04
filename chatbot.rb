@@ -2,7 +2,7 @@
 def floBot
 
 sleep(1)
-	puts "je m'apelle Laure !"
+	puts "je m'appelle Laure !"
 sleep(1)
 	puts "Laure.."
 sleep(1.2)
@@ -27,7 +27,7 @@ sleep(1.5)
 sleep(0.5)
 	puts "YOUPIIIIIII"
 sleep(1)
-	"bon, moi j'y vais, salut !"
+	puts"bon, moi j'y vais, salut !"
 sleep(1)
 	exit
 	elsif answer == "non" || answer == "no"
@@ -38,13 +38,13 @@ sleep(1)
 	else
 	puts "exprime toi plus clairement s'il te plait " + name
 	end
-end
+	end
 
 	puts "salut"
 	prompt = gets.strip!
 
-until prompt == "salut" || prompt == "coucou" || prompt == "yo" do
+	until prompt == "salut" || prompt == "coucou" || prompt == "yo" do
 	puts "Je n'ai pas compris, pouvez vous répéter"
 	prompt = gets.strip!
-end
+	end
 	floBot
