@@ -1,4 +1,5 @@
 require 'colorize'
+require 'juicy'
 
 class Personnage
 	
@@ -7,8 +8,9 @@ class Personnage
 	@pv_perso = pv
 	@attaque_perso = attaque
 	@defense_perso = defense
-	end
 
+	end
+	
 	def pif(cible)
 		cible.blessure(@attaque_perso)
 	end
@@ -93,6 +95,23 @@ class Personnage
 		puts "Un exellent choix, vos stats augmentées sont les suivantes : #{@pv_perso} pv, #{@attaque_perso} attaque et #{@defense_perso} defense, vous êtes prêt pour l'aventure !"
 		sleep(0.5)
 	end
+
+	def loot
+		if @pv_perso <= 30
+			puts "Vous dropez une énorme potion de soin" + "+ 30 pv".green
+			sleep(1)
+			@pv_perso = @pv_perso + 30
+		else 
+			random = rand(1..3)
+			if random == 1
+				puts "La chance ! Une potion de robustesse" + "+ 1 defense".green
+				@defense_perso = @defense_perso + 1
+			else
+				puts "Vous trouvez une potion du berserker" + "+ 1 en attaque".green 
+			end
+			sleep(1)
+		end
+	end
 end
 
 
@@ -138,6 +157,16 @@ class Monster
 	def getdef
 		return @defense_monster
 	end
+
+	def drop(cible)
+		random = rand(1..2)
+		if random == 1
+			puts "les poches du monstre sont vides"
+		else
+			cible.loot
+		end
+			
+	end
 	
 end
 pvMechant = rand(50..100)
@@ -150,32 +179,37 @@ c = 4
 system("clear")
 system("cls")
 
-
 Monstre = Monster.new(pvMechant, atqMonstre, defMonstre)
 Heros = Personnage.new(a, b, c)
 
-
-if pvMechant < 65
-	sleep(0.5)
-	puts "Oh ! Un gobelin ! Qu'il est mignon..."	
-elsif pvMechant >= 65 && pvMechant < 80
-	sleep(0.5)
-	puts "Un orc, basique et classique. il crie et il pue..."
-elsif pvMechant >= 80 && pvMechant < 98
-	sleep(0.5)
-	puts "Un Troll des cavernes ! Vous aimeriez qu'il rajuste son pagne... il faut corriger ce goujat"
-else 
-	sleep(0.5)
-	puts "Le boss final, tout simplement. Fuyez pauvre fou..."
-end
-
-sleep(0.5)
-puts "La bête est formidable, #{pvMechant} points de vie, une force de frappe de #{atqMonstre} et #{defMonstre} de défense ! Il va falloir jouer serré...".green.bold
-
 def combat(heros, monstre)
+
+	pvMechant = monstre.getpv
+	atqMonstre = monstre.getatq
+	defMonstre = monstre.getdef
+	if pvMechant < 65
+		sleep(0.5)
+		puts "Oh ! Un gobelin ! Qu'il est mignon..."
+	elsif pvMechant >= 65 && pvMechant < 80
+		sleep(0.5)
+		puts "Un orc, basique et classique. il crie et il pue..."
+	elsif pvMechant >= 80 && pvMechant < 98
+		sleep(0.5)
+		puts "Un Troll des cavernes ! Vous aimeriez qu'il rajuste son pagne... il faut corriger ce goujat"
+	elsif pvMechant > 97 && pvMechant < 120
+		puts "Une hydre des ténèbres, original."
+	else
+		sleep(0.5)
+		puts "Le boss final, tout simplement. Fuyez pauvre fou..."
+	end
+
+	sleep(0.5)
+	puts "La bête est formidable, #{pvMechant} points de vie, une force de frappe de #{atqMonstre} et #{defMonstre} de défense ! Il va falloir jouer serré...".green.bold
+
 	defense_base = heros.getdef
 	current_pv_monster = monstre.getpv
 	current_pv_heros = heros.getpv
+
 	until current_pv_monster == 0 || current_pv_heros == 0 
 		puts "Quelle action choisir ? (paf, block, super)"
 		action = gets.chomp
@@ -219,6 +253,7 @@ def combat(heros, monstre)
 		sleep(0.5)
 		puts "Gloire et honneur ! Vos ancètres sont fiers de vous...".green.bold
 		sleep(1.5)
+		monstre.drop(heros)
 	elsif current_pv_heros <= 0
 		sleep(0.5)
 		puts "La bête a eu raison de vous, les ménestrels chanteront pendant bien longtemps votre courage... et votre stupidité".red.bold
@@ -236,21 +271,23 @@ atq_monstre2 = rand(6..9)
 def_monstre2 = rand(3..6)
 
 sleep(1)
-puts "Une hydre des ténèbres jaillit d'un coin sombre, elle vous attaque, elle semble déterminée à venger votre victime qui git encore à vos pieds, #{pv_monstre2} pv, #{atq_monstre2} d'attaque #{def_monstre2} de défense"
-system("clear")
-system("cls")
-combat(Heros, Monstre2)
 system("clear")
 system("cls")
 
 i = 1;
+
 while Heros.getpv > 0
 	i++
+	sleep(1)
+	system("clear")
+	system("cls")
+	puts "A peine remis de vos émotions, un autre monstre jaillit des ténèbres"
+	sleep(0.5)
 	pv_monstre = rand(75..125)
 	atq_monstre = rand(3..7)
 	def_monstre = rand(2..6)
-	Monstre+"#{i}" = Monster.new(pv_monstre, atq_monstre, def_monstre)	
-	combat(Heros, Monstre*)
+	Monstre = Monster.new(pv_monstre, atq_monstre, def_monstre)	
+	combat(Heros, Monstre)
 	Heros.soin
 end
 
