@@ -1,12 +1,12 @@
+require 'colorize'
+
 class Personnage
 	
-	def initialize(pv = 0, attaque = 0, defense = 0)
+	def initialize(pv, attaque, defense)
 
 	@pv_perso = pv
 	@attaque_perso = attaque
 	@defense_perso = defense
-	pv_courants = @pv_perso
-
 	end
 
 	def pif(cible)
@@ -14,18 +14,22 @@ class Personnage
 	end
 
 	def bloc
-		@defense_perso = 3
 		@defense_perso = @defense_perso*2
 		sleep(0.5)
 		puts "Vous vous réfugiez courageusement derrière votre bouclier..."
+	end
+	def reset_defense(defense)
+
+	@defense_perso = defense 
+
 	end
 
 	def super(cible)
 
 	i = rand(2)
-		if(i < 1)
+		if(i == 1)
 		sleep(0.5)
-			puts "Vous êtes bourré ou quoi ?"
+			puts "Raté. Vous êtes bourré ou quoi ?".yellow
 		else
 			cible.megablessure(@attaque_perso)
 		end
@@ -38,7 +42,7 @@ class Personnage
 		end
 		@pv_perso = @pv_perso - degats
 		sleep(0.5)
-		puts "Vlan, vous perdez #{degats} pvs. Un pet de mouche..."
+		puts "Vlan, vous perdez #{degats} pvs. Un pet de mouche...".red
 	end
 
 	def megablessure(degats)
@@ -48,12 +52,48 @@ class Personnage
 		end
 		@pv_perso = @pv_perso - degats
 		sleep(0.5)
-		puts "violent le bougre... #{degats} pv en moins et un t shirt ruiné"
+		puts "violent le bougre... #{degats} pv en moins et un t shirt ruiné".red
 	end
 
 	def getpv
 		return @pv_perso
 	end
+
+	def getdef
+		return @defense_perso
+	end
+
+	def soin
+		@pv_perso = @pv_perso + 10
+		puts "Vous avalez une potion de vie pour vous remettre de ce dur combat" + " +10 PV".green
+	end
+
+	def choice
+		puts "Bravo aventurier ! Votre adresse au combat vous donne accès à un nouvel équipement, choisissez bien...(baton, epee, arc, cuillere) "
+		sleep(0.7)
+		nouveau_jouet = gets.chomp
+		case nouveau_jouet
+			when "baton"
+				@pv_perso = @pv_perso + 20
+				@attaque_perso = @attaque_perso + 5
+				@defense_perso = @defense_perso + 2
+			when "epee"
+				@attaque_perso = @attaque_perso + 8
+				@defense_perso = @defense_perso + 3
+
+			when "arc"
+				@pv_perso = @pv_perso + 10
+				@attaque_perso = @attaque_perso + 10
+
+			when "cuillere"
+				@pv_perso = @pv_perso/2
+				@attaque_perso = @attaque_perso*2
+				@defense_perso = @defense_perso*2
+		end
+		puts "Un exellent choix, vos stats augmentées sont les suivantes : #{@pv_perso} pv, #{@attaque_perso} attaque et #{@defense_perso} defense, vous êtes prêt pour l'aventure !"
+		sleep(0.5)
+	end
+end
 
 
 class Monster
@@ -78,31 +118,42 @@ class Monster
 		degats = degats - @defense_monster
 		@pv_monster = @pv_monster - degats
 		sleep(0.5)
-		puts "PIF ! le vilain monstre perd #{degats} points de vie !" 
+		puts "PIF ! le vilain monstre perd #{degats} points de vie !".green
 	end
 
 	def megablessure(degats)
 		@pv_monster = @pv_monster - degats
 		sleep(0.5)
-		puts "Dans les dents ! #{degats} points de vie perdus!" 
+		puts "Dans les dents ! #{degats} points de vie perdus!".green 
 	end
+
 	def getpv
 		return @pv_monster
 	end
-end
 
+	def getatq
+		return @attaque_monster
+	end
+
+	def getdef
+		return @defense_monster
+	end
+	
+end
 pvMechant = rand(50..100)
 atqMonstre = rand(3..7)
 defMonstre = rand(2..4)
 a = 100
-b = 20
-c = 3
+b = 10
+c = 4
+
+system("clear")
+system("cls")
+
 
 Monstre = Monster.new(pvMechant, atqMonstre, defMonstre)
 Heros = Personnage.new(a, b, c)
 
-current_pv_monster = Monstre.getpv
-current_pv_heros = Heros.getpv
 
 if pvMechant < 65
 	sleep(0.5)
@@ -119,45 +170,87 @@ else
 end
 
 sleep(0.5)
-puts "La bête est formidable, #{pvMechant} points de vie, une force de frappe de #{atqMonstre} et #{defMonstre} de défense ! Il va falloir jouer serré..."
+puts "La bête est formidable, #{pvMechant} points de vie, une force de frappe de #{atqMonstre} et #{defMonstre} de défense ! Il va falloir jouer serré...".green.bold
 
-until current_pv_monster <= 0 || current_pv_heros <= 0 
-	puts "Quelle action choisir ? (paf, block, super)"
+def combat(heros, monstre)
+	defense_base = heros.getdef
+	current_pv_monster = monstre.getpv
+	current_pv_heros = heros.getpv
+	until current_pv_monster == 0 || current_pv_heros == 0 
+		puts "Quelle action choisir ? (paf, block, super)"
 		action = gets.chomp
-	until action == "paf" || action == "block" || action == "super"
-		action = gets.chomp
-	end
-	if action == "paf" 
-		Heros.pif(Monstre)
-	elsif action == "block"
-		Heros.bloc
-	elsif action == "super"
-		Heros.super(Monstre)
-	end
+		until action == "paf" || action == "block" || action == "super"
+			action = gets.chomp
+		end
+		if action == "paf" 
+			heros.pif(monstre)
+		elsif action == "block"
+			heros.bloc
+		elsif action == "super"
+			heros.super(monstre)
+		end
 
-	sleep(0.5)
-	puts "Le monstre s'énerve, attention..."
-	sleep(0.5)
-	j = rand(2)
-	if j == 1
-		Monstre.vlan(Heros)
-	else
-		Monstre.paf(Heros)
-	end
-	current_pv_monster = Monstre.getpv
-	current_pv_heros = Heros.getpv
+		sleep(0.5)
+		puts "Le monstre s'énerve, attention..."
+		sleep(0.5)
+		j = rand(2)
+		if j == 1
+			monstre.vlan(heros)
+		else
+			monstre.paf(heros)
+		end
+		heros.reset_defense(defense_base)
+		current_pv_monster = monstre.getpv
+		if current_pv_monster < 0
+			current_pv_monster = 0
+		end
+		current_pv_heros = heros.getpv
+		if current_pv_heros < 0
+			currrent_pv_heros = 0
+		end
 	
-	puts "Il vous reste #{current_pv_heros} points de vie, le monstre en a #{current_pv_monster}"
-	sleep(0.5)
-	puts "Le combat continue !"
-	sleep(0.5)
+		puts "Il vous reste #{current_pv_heros} points de vie, le monstre en a #{current_pv_monster}"
+		sleep(0.5)
+		puts "Le combat continue !"
+		sleep(0.5)
+	end
+
+	if current_pv_monster <= 0 
+		sleep(0.5)
+		puts "Gloire et honneur ! Vos ancètres sont fiers de vous...".green.bold
+		sleep(1.5)
+	elsif current_pv_heros <= 0
+		sleep(0.5)
+		puts "La bête a eu raison de vous, les ménestrels chanteront pendant bien longtemps votre courage... et votre stupidité".red.bold
+	end
 end
 
-if current_pv_monster <= 0 
-	sleep(0.5)
-	puts "Victoire !"
-elsif current_pv_heros <= 0
-	sleep(0.5)
-	puts "La bête a eu raison de vous, les ménestrels chanteront pendant bien longtemps votre courage... et votre stupidité"
+combat(Heros, Monstre)
+
+system("clear")
+system("cls")
+Heros.soin
+Heros.choice
+pv_monstre2 = rand(75..125)
+atq_monstre2 = rand(6..9)
+def_monstre2 = rand(3..6)
+
+sleep(1)
+puts "Une hydre des ténèbres jaillit d'un coin sombre, elle vous attaque, elle semble déterminée à venger votre victime qui git encore à vos pieds, #{pv_monstre2} pv, #{atq_monstre2} d'attaque #{def_monstre2} de défense"
+system("clear")
+system("cls")
+combat(Heros, Monstre2)
+system("clear")
+system("cls")
+
+i = 1;
+while Heros.getpv > 0
+	i++
+	pv_monstre = rand(75..125)
+	atq_monstre = rand(3..7)
+	def_monstre = rand(2..6)
+	Monstre+"#{i}" = Monster.new(pv_monstre, atq_monstre, def_monstre)	
+	combat(Heros, Monstre*)
+	Heros.soin
 end
-end
+
