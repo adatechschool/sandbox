@@ -1,0 +1,14 @@
+ce code affiche "Pokémon" en Brainfuck 
+Ce fichier n 'est pas executable en tant que tel, il faut trouver un compilateur de brainfuck, qui généralement traduit le programme en c, avant de le compiler pour l'éxecuter
+Il y en a un en ligne ici : https://copy.sh/brainfuck/?file=https://copy.sh/brainfuck/prog/
+
+
+++++++++++
+[>++++++++
+>+++++++++++
+>+++++++++++
+>+++++++++++++++++++++++
+>+++++++++++
+>+++++++++++<<<<<<-]
+>.>+.>---.>+++.>-.<<<.>>>+.
+
