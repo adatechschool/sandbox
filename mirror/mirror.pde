@@ -6,7 +6,8 @@ void setup()
 
 void draw()
 {
-  stroke(random(25, 125), random(150), random(20, 200));
+  stroke(random(255), 50, 50);
+  strokeWeight(random(2, 4));
   if (mousePressed)
   {
     line(mouseX, mouseY, pmouseX, pmouseY);
@@ -14,8 +15,9 @@ void draw()
     line(500 - mouseX, 500 - mouseY, 500 - pmouseX, 500 - pmouseY);
     line(mouseX, 500 - mouseY, pmouseX, 500 - pmouseY);
   } 
+
   
-  if(keyPressed && key == 'd')
+  if(keyPressed && key == 'c')
   {
     clear();
     background(30);

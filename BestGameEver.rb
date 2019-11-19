@@ -27,7 +27,7 @@ class Personnage
 
 	def super(cible)
 
-	i = rand(2)
+	i = rand(1..3)
 		if(i == 1)
 		sleep(0.5)
 			puts "Raté. Vous êtes bourré ou quoi ?".yellow
@@ -124,7 +124,7 @@ end
 
 class Monster
 	
-	def initialize(pv = 0, attaque = 0, defense = 0)
+	def initialize(pv, attaque, defense)
 
 		@pv_monster = pv
 		@attaque_monster = attaque
@@ -252,7 +252,7 @@ def combat(heros, monstre)
 	
 		puts "Il vous reste" + " #{current_pv_heros}".green + " points de vie" + ", le monstre en a " + "#{current_pv_monster}".green
 		sleep(0.5)
-		if current_pv_monster > 0
+		if current_pv_monster > 0 && current_pv_heros > 0
 			puts "Le combat continue !"
 		end
 		sleep(0.5)
@@ -300,9 +300,10 @@ sleep(1)
 system("clear")
 system("cls")
 
-i = 1;
+
 
 while Heros.getpv > 0
+	i = 1
 	i++
 	sleep(1)
 	system("clear")
