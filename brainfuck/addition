@@ -1,0 +1,12 @@
+Ce code fait une addition entre 6 et 2, et affiche le résultat
+Le problème c'est que brainfuck affiche la valeur ascii avec la méthode ., il faut donc d'abord stocker la valeur ascii de 0 dans une case à part, effectuer l'addition, puis effectuer une seconde addition
+entre ascii de 0 (48) pour avoir la valeur ascii du résultat et l'afficher
+
+++++++++++
+[>>>+++++<<<-]
+>>>--
+<++++++
+<++
+>[-<+>]
+>[-<<+>>]
+<<.

@@ -1,4 +1,6 @@
 require 'colorize'
+require 'win32/sound'
+include Win32
 
 class Personnage
 	
@@ -83,6 +85,8 @@ class Personnage
 		nouveau_jouet = gets.chomp
 		case nouveau_jouet
 			when "baton"
+				puts "vous avez choisi le bâton ! Un.e petit.e magicien.ne en herbe !"
+				Sound.play("music/Batonsort.mp3")
 				@pv_perso = @pv_perso + 20
 				@attaque_perso = @attaque_perso + 5
 				@defense_perso = @defense_perso + 2
@@ -269,8 +273,8 @@ def combat(heros, monstre)
 	end
 end
 
-sleep(1.5)
 puts "Bienvenue Aventurier ! Serez vous à la hauteur du " + "ADA DUNGEON ".magenta + " ?"
+Sound.play("music/Troll.mp3")
 sleep(2)
 puts "Quel est votre blaze ?"
 blaze = gets.chomp
