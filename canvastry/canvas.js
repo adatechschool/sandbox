@@ -75,8 +75,30 @@ function draw()
     ctx.stroke();
 }
 
+function draw2()
+{
+    let a = rand(255);
+    let b = rand(255);
+    let c = rand(200);
+    let y = Math.random(1);
+    let z = Math.random(2);
+
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.arc(w/2, h/2, rand(450), (b*c)/2, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = "rgba(" + a + "," + b + ", " + c +", "+ y +")";
+    ctx.arc(rand(w), rand(h), (a + b + c)/3, 0, Math.PI*2);
+    ctx.fill();
+    ctx.clearRect(rand(w), rand(h), (a + b)/2, c);
+    cctx.fillStyle = "white";
+    ctx.arc(w/2, h/2, rand(450), (a*c)/2, Math.PI*2);
+}
+
+
 //commentez et décommentez ces lignes pour appeler les différentes fonctions
 //setInterval(draw, 4);
+setInterval(draw2, 30);
 //setInterval(generate, 3);
-setInterval(rectangle, 2);
+//setInterval(rectangle, 2);
 //setInterval(ellipse, 1);
