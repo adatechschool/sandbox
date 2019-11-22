@@ -1,8 +1,10 @@
 var speed = document.getElementById("myRange");
-let blue = document.getElementById("Blue");
-let red = document.getElementById("Red");
-let green = document.getElementById("Green");
-
+let blueSlider = document.getElementById("Blue");
+let redSlider = document.getElementById("Red");
+let greenSlider = document.getElementById("Green");
+let aSlider = document.getElementById("a");
+let bSlider = document.getElementById("b");
+let cSlider = document.getElementById("c");
 // Update the current slider value (each time you drag the slider handle)
 speed.oninput = function() 
 {
@@ -11,17 +13,33 @@ speed.oninput = function()
   setSpeed();
 }
 
-red.oninput = function()
+redSlider.oninput = function()
+{
+    red = this.value;
+}
+
+greenSlider.oninput = function()
+{
+    green = this.value;
+}
+
+blueSlider.oninput = function()
+{
+    blue = this.value;
+}
+
+aSlider.oninput = function()
 {
     a = this.value;
 }
 
-green.oninput = function()
+bSlider.oninput = function()
 {
     b = this.value;
 }
 
-blue.oninput = function()
+cSlider.oninput = function()
 {
     c = this.value;
 }
+
