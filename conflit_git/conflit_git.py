@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+# Encore un commentaire
+
 food = input("Entrez votre nourriture favorite : ")
 
 print("Votre nourriture favorite est : {}".format(food))
