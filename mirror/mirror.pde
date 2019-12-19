@@ -6,7 +6,7 @@ void setup()
 
 void draw()
 {
-  stroke(random(255), 50, 50);
+  stroke(random(255), random(200), random(50, 100));
   strokeWeight(random(2, 4));
   if (mousePressed)
   {

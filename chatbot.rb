@@ -1,5 +1,9 @@
 #!/usr/bin/ruby
+require 
+
+
 def floBot
+
 
 sleep(1)
 	puts "je m'appelle Laure !"
