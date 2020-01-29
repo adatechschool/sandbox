@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import Charlie
+import Charlie as C
 
-c = Charlie("Derrière les buissons")
+c = C.Charlie("Derrière les buissons")
 
 c.où()
