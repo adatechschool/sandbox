@@ -38,6 +38,25 @@ class Pixel
   }
 }
 
+class Sky
+{
+  int rate;
+  Sky(int a)
+  {
+    rate = a;
+  }
+
+  void drawsky()
+  {
+    int j;
+    for (int i = 0; i < 10000; i++)
+    {
+      j = int(i/100);
+      tab[i].colorize(180 + j, 100, 50);
+    }
+  }
+}
+
 class Ground
 {
   int level;
@@ -48,18 +67,15 @@ class Ground
   
   void drawground()
   {
-    for (int i = 0; i < 10000; i++)
+    for (int i = 9999; i > level*100 - 1; i--)
     {
-      if (i%100 > level)
-      { 
-        int shine1 = int(mouseX/50);
-        int shine2 = int(mouseY/50);
-        tab[i].colorize(i/2000 * 10 + 90, 100 - shine1, 80 + shine2);
-      }
-      if (i%100 == level)
-      {
-        tab[i].colorize(30, 45, 50);
-      }
+       int shine1 = int(mouseX/50);
+       int shine2 = int(mouseY/50);
+       tab[i].colorize(100, 100 - shine1, 80 + shine2);
+    }
+    for (int i = level*100; i < level*100 + 100; i++)
+    {
+      tab[i].colorize(250, 30, 30);
     }
   }
 }
@@ -71,14 +87,14 @@ class Mouse
   {
     posX = int(mouseX/10);
     posY = int(mouseY/10);
-    index = posY + posX*100;
+    index = posX + posY*100;
   }
   
   void updatepos()
   {
     this.posX = int(mouseX/10);
     this.posY = int(mouseY/10);
-    this.index = this.posY + this.posX*100;
+    this.index = this.posX + (this.posY*100);
   }
   
   void hoversquare(int sizeX, int sizeY)
@@ -117,7 +133,7 @@ class Mouse
   void light()
   {
     this.updatepos();
-    int index = this.index;
+    int index = tab[this.index].index;
     int Hue = tab[index].Hue;
     int Sat = tab[index].Sat;
     int Bri = constrain(tab[index].Hue + 50, tab[index].Hue + 50, 100);

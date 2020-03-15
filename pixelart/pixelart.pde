@@ -1,6 +1,7 @@
 Pixel[] tab = new Pixel[10000];
 Mouse Mouse1 = new Mouse();
 Ground Ground1 = new Ground(20);
+Sky Sky1 = new Sky(0);
 
 void setup()
 {
@@ -11,19 +12,14 @@ void setup()
   {
     for (int j = 0; j < 100; j++)
     {
-      tab[i*100 + j] = new Pixel(i, j);
+      tab[j*100 + i] = new Pixel(i, j);
     }
   }
 }
 
 void draw()
 {
-  //Mouse1.fulldegraded(0, 360); 
-  for (int i = 0; i < 10000; i++)
-  {
-     tab[i].colorize(int(random(100, 150)), 40, 40); 
-  }
+  Sky1.drawsky();
   Ground1.drawground();
   Mouse1.light();
-
 }
