@@ -42,4 +42,3 @@ cSlider.oninput = function()
 {
     c = this.value;
 }
-

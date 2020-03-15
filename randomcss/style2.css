@@ -1,0 +1,18 @@
+body 
+{
+    background:red;
+}
+
+.container
+{
+    display:flex;
+    justify-content:space-evenly;
+}
+
+div.container > div
+{
+    border:1px solid black;
+    width:50px;
+    height:50px;
+    background:blue;
+}

@@ -1,0 +1,35 @@
+h1, h2
+{
+    text-align: center;
+}
+
+h1
+{
+    margin:0;
+    padding:10;
+    color: pink;
+}
+
+h1:hover
+{
+    color:blue;
+}
+
+.container
+{
+    display:flex;
+}
+
+div.container > div
+{
+    border:1px solid black;
+    width:50px;
+    height:50px;
+    background:blue;
+}
+
+canvas
+{
+    position:absolute;
+    z-index:-1;
+}
