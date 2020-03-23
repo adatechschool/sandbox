@@ -121,7 +121,7 @@ class Mouse
      blendMode(NORMAL);
   } 
   
-  void fulldegraded(int min, int max)
+  void horGradient(int min, int max)
   {
     this.updatepos();
     for (int i = 0; i < 14400; i++)

@@ -19,7 +19,7 @@ void setup()
 
 void draw()
 {
-  Mouse1.fulldegraded(160, 220);
+  Mouse1.horGradient(0, 355);
   //Sky1.drawsky();
   Ground1.drawground();
   Mouse1.light();
