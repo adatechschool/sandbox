@@ -1,44 +1,37 @@
 let W = window.innerWidth;
 let H = window.innerHeight;
-let xoff = [];
-let L1, H1, C1, C2, C3, C4;
+let L1, H1, R1, R2;
+let circles = [15];
+let xoff = 0.0;
 
 function setup() 
 {
-  createCanvas(W, H);
-  for (let i = 0; i < 150; i++)
-  {
-    xoff[i] = random(184651116);
-  }
+   createCanvas(W, H);
    V1 = new VerticalLine();
    H1 = new HorizontalLine();
-   C1 = new WanderingCircle(random(400));
-   C2 = new WanderingCircle(random(500));
-   C3 = new WanderingCircle(random(200));
-   C4 = new WanderingCircle(random(300));
+   R1 = new CenterRect(300);
+   R2 = new CenterRect(900);
+   for (let i = 0; i < 15; i++)
+   {
+     circles[i] = new WanderingCircle(random(100));
+   }
 }
 
 
 function draw() 
 {
-  for (let i = 0; i < 150; i++)
-  {
-    xoff[i] += 0.01;
-  }
-  greyBackground();
-  blendMode(MULTIPLY);
-  V1.display();
-  H1.display();
-  blendMode(ADD);
-  C1.display();
-  blendMode(DIFFERENCE);
-  C2.display();
-  C3.display();
-  blendMode(SUBTRACT);
-  C4.display();
+  xoff += 0.01;
   blendMode(BLEND);
-  //blendMode(EXCLUSION);
-  centerSquare(200);
+  greyBackground();
+  blendMode(DIFFERENCE);
+  for (let i in circles)
+  {
+    if (i == 7) {blendMode(ADD);}
+    circles[i].display();
+  }
+  blendMode(EXCLUSION);
+  R1.display();
+  R2.display();
 }
 
 class VerticalLine
@@ -108,9 +101,9 @@ class WanderingCircle
   
   move()
   {
-    this.xoff += 0.001;
-    this.yoff += 0.001;
-    this.zoff += 0.001;
+    this.xoff += 0.01;
+    this.yoff += 0.01;
+    this.zoff += 0.01;
     this.Xpos = noise(this.xoff)*W;
     this.Ypos = noise(this.yoff)*H;
   }
@@ -129,18 +122,35 @@ class WanderingCircle
   }
 }
 
-
-function centerSquare(size)
+class CenterRect
 {
-  size = noise(xoff[1]) * (H/2) + size;
-  let colorVar = noise(xoff[2]);
-  rectMode(CENTER);
-  noStroke();
-  fill(int(colorVar*255), 51, 255 - int(noise(xoff[1]) * 200), 60);
-  rect(W/2, H/2, size, size);
+  constructor(thesize)
+  {
+    this.xoff = random(456789132);
+    this.yoff = random(123456);
+    this.R = 255;
+    this.V = 255;
+    this.B = 255;
+    this.size = 0;
+    this.originalSize = thesize;
+  }
+  
+  vary()
+  {
+    this.xoff += 0.01;
+    this.yoff += 0.01;
+    this.size = noise(this.xoff)*this.originalSize;
+  }
+  display()
+  {
+    this.vary();
+    rectMode(CENTER);
+    fill(int(noise(this.yoff)*255), int(noise(this.xoff)*155), 255 - int(noise(this.xoff) * 255));
+    rect(W/2, H/2, this.size * W / H, this.size);
+  }
 }
 
 function greyBackground()
 {
-  background(51);
+  background(noise(xoff) * 255);
 }
