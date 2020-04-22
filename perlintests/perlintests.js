@@ -1,12 +1,12 @@
 let W = window.innerWidth;
 let H = window.innerHeight;
-let L1, H1, R1, R2;
 let circles = [15];
 let xoff = 0.0;
 
 function setup() 
 {
    createCanvas(W, H);
+
    V1 = new VerticalLine();
    H1 = new HorizontalLine();
    R1 = new CenterRect(300);
@@ -30,8 +30,6 @@ function draw()
     circles[i].display();
   }
   blendMode(EXCLUSION);
-  R1.display();
-  R2.display();
 }
 
 class VerticalLine
