@@ -11,7 +11,7 @@ function setup()
    H1 = new HorizontalLine();
    R1 = new CenterRect(300);
    R2 = new CenterRect(900);
-   for (let i = 0; i < 15; i++)
+   for (let i = 0; i < 15 ; i++)
    {
      circles[i] = new WanderingCircle(random(100));
    }
@@ -29,6 +29,8 @@ function draw()
     if (i == 7) {blendMode(ADD);}
     circles[i].display();
   }
+  H1.display();
+  R1.display();
   blendMode(EXCLUSION);
 }
 
@@ -143,6 +145,7 @@ class CenterRect
   {
     this.vary();
     rectMode(CENTER);
+    noStroke();
     fill(int(noise(this.yoff)*255), int(noise(this.xoff)*155), 255 - int(noise(this.xoff) * 255));
     rect(W/2, H/2, this.size * W / H, this.size);
   }
@@ -152,3 +155,11 @@ function greyBackground()
 {
   background(noise(xoff) * 255);
 }
+
+function yellowBackground()
+{
+  background(255, 255, noise(xoff) * 255);
+}
+
+
+ 
