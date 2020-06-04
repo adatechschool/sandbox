@@ -11,6 +11,7 @@ class Personnage
     public:
         Personnage();
         void sePresenter();
+        void function_score();
 };
 
 #endif
