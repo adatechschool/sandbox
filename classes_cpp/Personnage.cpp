@@ -13,7 +13,7 @@ void Personnage::sePresenter()
     std::cout << "Je m'apelle " << nom << std::endl;
 }
 
-void Personnage::score()
+void Personnage::function_score()
 {
 
 }
