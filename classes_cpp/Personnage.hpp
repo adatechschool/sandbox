@@ -7,6 +7,7 @@ class Personnage
 {
     std::string nom;
     int points_de_vie;
+    int score;
     public:
         Personnage();
         void sePresenter();
