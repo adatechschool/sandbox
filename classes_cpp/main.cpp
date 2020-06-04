@@ -6,6 +6,8 @@ int main()
     //créer un personnage s'il te plait ?
     Personnage monPersonnage;
     monPersonnage.sePresenter();
-    _sleep(10000);
+    while (true) {
+      
+    }
     return 0;
 }
