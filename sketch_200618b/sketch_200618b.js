@@ -22,7 +22,7 @@ function draw() {
   if(mouseIsPressed)
   {
     let angle = 360 / 12;
-    let hu = noise(xoff) * 255;
+    let hu = noise(xoff) * 60;
     for (let i = 0; i<division; i++)
     {
       push();
@@ -33,7 +33,7 @@ function draw() {
       stroke(hu, 255, 255, 100);
       rotate(i*angle);
       let d = dist(mx, my, pmx, pmy);
-      let strokeW = map(d, 0, 30, 18, 1);
+      let strokeW = map(d, 0, 20, 10, 1);
       strokeWeight(strokeW);
       line(mx, my, pmx, pmy);
       pop();
