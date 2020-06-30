@@ -17,8 +17,6 @@ func main(){
 		fmt.Println("Choisissez une lettre")
 		fmt.Scanf("%s", &input)
 		lettre := input[0:1]
-		fmt.Println(lettre)
-		//vérifier qu'on a bien qu'une seule lettre (ou ne prendre que la première)
 		if strings.Contains(mot, lettre){
 			//remplacer l'* dans le résultat par la bonne lettre
 			fmt.Println("Bien ouej")
