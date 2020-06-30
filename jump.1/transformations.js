@@ -23,8 +23,17 @@ function draw()
     {
         rect(i * 100, -i * 200, 100, 30);
     }
+    rect(400, 100, 200, 20);
+
     porygon.move();
     porygon.show();
+    if (porygon.x > 400 && porygon.x < 600 && porygon.y < 50)
+    {
+        console.log("plop");
+        porygon.y = porygon.y + 50; 
+
+    }
+    console.log(porygon.y);
 }
 
 function keyPressed()
@@ -39,7 +48,7 @@ function keyPressed()
     }
     if (key == "q")
     {
-        scale(-1, 1);
+        //scale(-1, 1);
         porygon.turn_left();
     }
 }
