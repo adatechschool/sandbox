@@ -1,9 +1,9 @@
 package main
 
 import "fmt"
-var resultat int
-var nombre1 int
-var nombre2 int
+var resultat float32
+var nombre1 float32
+var nombre2 float32
 var choice int
 
 func main(){
@@ -12,7 +12,7 @@ func main(){
 	
 	fmt.Println("Veuillez taper votre deuxieme nombre")
 	fmt.Scanf("%d", &nombre2)
-	
+
 	fmt.Println("Que voulez vous faire ? (1: addition, 2:soustraction, 3:multiplication, 4:division)")
 	fmt.Scanf("%d", &choice)
 	switch choix:=choice; choix{ 
