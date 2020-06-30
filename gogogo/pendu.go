@@ -5,8 +5,7 @@ import "strings"
 
 var mot string
 var nb_chances int
-var lettre string
-//var tirets string
+var input string
 
 func main(){
 	nb_chances := 11
@@ -16,10 +15,14 @@ func main(){
 	fmt.Println("Joueur 2, à toi de jouer !")
 	for true {
 		fmt.Println("Choisissez une lettre")
-		fmt.Scanf("%s", &lettre)
+		fmt.Scanf("%s", &input)
+		lettre := input[0:1]
+		//vérifier qu'on a bien qu'une seule lettre (ou ne prendre que la première)
 		if strings.Contains(mot, lettre){
-			//remplacer l'* dans  par la bonne lettre
+			//remplacer l'* dans le résultat par la bonne lettre
+			fmt.Println(lettre)
 			fmt.Println("Bien ouej")
+			//condition de victoire
 		} else {
 			nb_chances--
 			fmt.Println("Il te reste ", nb_chances, " chances")
