@@ -2,10 +2,14 @@ let W = window.innerWidth;
 let H = window.innerHeight;
 let porygon;
 let imgPorygon;
+let color1; 
+let color2;
 
 function setup() 
 {
     createCanvas(W, H);
+    color1 = color(0, 0, 60);
+    color2 = color(180, 100, 255);
     porygon = new Porygon();
     imageMode(CENTER);
     imgPorygon = loadImage("https://vignette.wikia.nocookie.net/kingdomhearts/images/1/10/Mushu.png/revision/latest/top-crop/width/360/height/450?cb=20120512105550&path-prefix=fr");
@@ -14,7 +18,7 @@ function setup()
 
 function draw() 
 {
-    background(0);
+    setGradient(color1, color2);
     translate(-porygon.x + W/2, -porygon.y + H/2);
     fill(255);
     rect(-5000, H/2 - 175, 10000, H/2);
@@ -27,12 +31,6 @@ function draw()
 
     porygon.move();
     porygon.show();
-    if (porygon.x > 400 && porygon.x < 600 && porygon.y < 50)
-    {
-        console.log("plop");
-        porygon.y = porygon.y + 50; 
-
-    }
     console.log(porygon.y);
 }
 
@@ -52,6 +50,17 @@ function keyPressed()
         porygon.turn_left();
     }
 }
+
+function setGradient(c1, c2) {
+    // noprotect
+    noFill();
+    for (var y = 0; y < height; y++) {
+      var inter = map(y, 0, height, 0, 1);
+      var c = lerpColor(c1, c2, inter);
+      stroke(c);
+      line(0, y, width, y);
+    }
+  }
 
 class Porygon
 {
