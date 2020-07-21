@@ -5,11 +5,12 @@ let circles = [15];
 function setup()
 {
     createCanvas(W, H);
+    loadPixels();
+    frameRate(15);
 }
 
 function draw()
 {
-    loadPixels();
     for (let x = 0; x < W; x++)
     {
         for (let y = 0; y < H; y++)
