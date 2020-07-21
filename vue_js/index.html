@@ -5,14 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Reenie+Beanie&display=swap" rel="stylesheet"> 
     <title>Document</title>
 </head>
 <body>
-    <div id="app">
-        {{ pokemon }}
+    <div class="container">
+            <div id="blaze">
+                {{ nom }}
+            </div>
+            <img :src="image" alt="" id="image">
+            <div id="description">
+                {{ description }}
+            </div>
     </div>
-    <img :src="bulbizarre" alt="" id="bulbi">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="script.js"></script>
+    <script src="dofus.js"></script>
 </body>
 </html>

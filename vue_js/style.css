@@ -1,0 +1,57 @@
+body
+{
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(151,233,148,1) 100%);
+}
+
+.container
+{
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content:space-evenly;
+    justify-content:stretch;
+    height:100%;
+    width:100%;
+}
+
+#blaze 
+{
+    text-align:center;
+    margin: 0 auto;
+    margin-bottom:7%;
+    padding:1%;
+    margin-top:2%;
+    font-size:4em;
+    font-family: 'Press Start 2P', cursive;
+    transition:0.3s;
+}
+
+#blaze:hover
+{
+    color:white;
+}
+
+#image
+{
+    text-align:center;
+    margin: 0 auto; 
+    padding:1%;
+    transition:0.1s;
+}
+
+img:hover
+{
+    border:3px dashed rgba(173, 132, 228, 0.26);
+}
+
+#description
+{
+    text-align:center;
+    margin: 0 auto; 
+    padding-left:3%;
+    padding-right:3%;
+    margin-top:3%;
+    font-size:1.6em;
+    font-family: 'Reenie Beanie', cursive;
+}
