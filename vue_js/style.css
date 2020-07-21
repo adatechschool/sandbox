@@ -1,7 +1,19 @@
+body, html
+{
+    margin:0;
+    padding:0;
+    height:100%;
+    width:100%;
+    box-sizing: border-box;
+}
+
 body
 {
+
     background: rgb(238,174,202);
     background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(151,233,148,1) 100%);
+    border:20px solid rgba(238, 174, 202, 1);
+
 }
 
 .container
@@ -23,13 +35,16 @@ body
     padding:1%;
     margin-top:2%;
     font-size:4em;
-    font-family: 'Press Start 2P', cursive;
+    color:rgb(66, 66, 66);
+    font-family: 'Cinzel Decorative', cursive;    
     transition:0.3s;
+    text-decoration:underline;
 }
 
 #blaze:hover
 {
     color:white;
+    text-decoration:overline;
 }
 
 #image
@@ -38,11 +53,6 @@ body
     margin: 0 auto; 
     padding:1%;
     transition:0.1s;
-}
-
-img:hover
-{
-    border:3px dashed rgba(173, 132, 228, 0.26);
 }
 
 #description
@@ -54,4 +64,11 @@ img:hover
     margin-top:3%;
     font-size:1.6em;
     font-family: 'Reenie Beanie', cursive;
+    opacity:0.0;
+    transition:.5s;
+}
+
+img:hover + #description 
+{
+    opacity:1.0;
 }
