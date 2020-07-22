@@ -21,7 +21,7 @@ async function dofus_pets()
         el: "#image",
         data:
         {
-        image: json[numero].imgUrl
+            image: json[numero].imgUrl
         }
     });
 
@@ -30,7 +30,7 @@ async function dofus_pets()
         el: "#description",
         data:
         {
-        description: json[numero].description
+            description: json[numero].description
         }
     });
 }
