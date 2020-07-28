@@ -1,6 +1,9 @@
-function makeBox(x, y, w, h)
+function makeBox(x, y, w, h, friction, restitution)
 {
-    let options = {friction : 1};
+    let options = {
+                    friction : this.friction,
+                    restitution: this.restitution
+                };
     this.body = Bodies.rectangle(x, y, w, h, options);
     this.w = w;
     this.h = h;
@@ -19,9 +22,14 @@ function makeBox(x, y, w, h)
     }
 }
 
-function makeBubble(x, y, r)
+function makeBubble(x, y, r, friction, restitution)
 {
-    let options = {friction:1};
+    this.friction = friction;
+    this.restitution = restitution;
+    let options = {
+        friction : friction,
+        restitution: restitution
+    };
     this.body = Bodies.circle(x, y, r, options);
     this.r = r;
     World.add(myWorld, this.body);
@@ -34,7 +42,7 @@ function makeBubble(x, y, r)
         translate(pos.x, pos.y);
         rectMode(CENTER);
         rotate(angle);
-        circle(0, 0, r);
+        circle(0, 0, 2*r);
         pop();
     }
 }

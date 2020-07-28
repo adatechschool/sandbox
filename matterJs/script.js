@@ -7,10 +7,21 @@ let engine;
 let world;
 let boxes = [];
 let bubbles = [];
+let carres = [];
 let ground;
+let carretest;
+let backColor;
+let groundColor;
+let toggleButton;
 
 let W = window.innerWidth;
 let H = window.innerHeight;
+
+let sliderFriction;
+let sliderRestitution;
+let sliderSize;
+let sliderBackColor;
+let sliderGroundColor;
 
 function setup()
 {
@@ -18,29 +29,72 @@ function setup()
     myWorld = engine.world;
     createCanvas(W, H);
     Engine.run(engine);
-    console.log(myWorld);
-    ground = Bodies.rectangle(0, H - 100, W*2, 10, {isStatic : true});
+    rectMode(CENTER);
+    sliderFriction = createSlider(0, 1, 1, 0.01);
+    sliderFriction.position(10, H - 40);
+    sliderRestitution = createSlider(0, 1, 0, 0.01);
+    sliderRestitution.position(10, H - 70);
+    sliderSize = createSlider(0, 100, 20, 0.5);
+    sliderSize.position(210, H - 40 );
+    sliderBackColor = createSlider(0, 255, 0, 1);
+    sliderBackColor.position(W - 210 , H - 40);
+    sliderGroundColor = createSlider(0, 255, 255, 1);
+    sliderGroundColor.position(W - 210, H - 70);
+    toggleButton = createButton("(^.^)");
+    toggleButton.position(W/2, H - 50);
+    toggleButton.mousePressed(changeForm);
+    ground = Bodies.rectangle(W/2, H - 100, W-10, 10, {isStatic : true});
     World.add(myWorld, ground);
+    for (i = 0; i < 10; i++)
+    {
+        carres.push(Bodies.rectangle((W/10)*i + W/20, random(300 , H - 200), 100, 100, {isStatic : true}));
+        World.add(myWorld, carres[i]);
+    }
     strokeWeight(0);
     noStroke();
 }
 
+function changeForm()
+{
+    console.log("à coder");
+}
+
 function mouseDragged()
 {
-    boxes.push(new makeBox(mouseX, mouseY, 20 + random(20), 2 + random(38)));
-    bubbles.push(new makeBubble(mouseX, mouseY, 10 + random(10)));
+    let friction = sliderFriction.value();
+    let restitution = sliderRestitution.value();
+    let size = sliderSize.value();
+    //boxes.push(new makeBox(mouseX, mouseY, 200 + random(100), 100 + random(200)));
+    if (mouseY < H - 100 && Math.floor(frameRate())%2 == 0)
+    {
+        bubbles.push(new makeBubble(mouseX, mouseY, size + random(5), friction, restitution));
+    }
+}
+
+function keyPressed()
+{
+    if (keyCode == "c")
+    {
+        bubbles = [];
+    }
 }
 
 function draw()
 {
-    background(0);
-    fill(255);
-    rect(0, H - 100, W, 10)
-    for (i in boxes)
+    backColor = sliderBackColor.value();
+    groundColor = sliderGroundColor.value();
+    background(backColor);
+    fill(groundColor);
+    rect(ground.position.x, ground.position.y, W-10, 10);
+    for (i in carres)
     {
-        fill(i%255, 10 + i%100, 10 + boxes[i].w%255);
-        boxes[i].show();
+        rect(carres[i].position.x, carres[i].position.y, 100, 100);
     }
+    // for (i in boxes)
+    // {
+    //     fill(i%255, 10 + i%100, 10 + boxes[i].w%255);
+    //     boxes[i].show();
+    // }
     for (j in bubbles)
     {
         fill(j%150, 10 + j%245, 10 + j%50);
